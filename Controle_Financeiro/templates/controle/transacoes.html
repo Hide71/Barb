@@ -1,0 +1,29 @@
+<section id="transaction">
+    <h2 class="sr-only">Transações</h2>
+    <a href="#" onclick="Modal.open()" class="button new">+ Nova transação</a>
+    <div class="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th></th> <!-- Celula vazia para os botões de ação -->
+                </tr>
+            </thead> 
+            <tbody>
+                {% for transacao in transacoes %}
+                <tr>
+                    <td>{{transacao.descricao}}</td>
+                    <td>{{transacao.valor}}</td>
+                    <td>{{transacao.data}}</td>
+                    <td>
+                       <a class="btn btn-warning" href="{% url 'transacao_edit' transacao.id %}">EDITAR</a>
+                       <a class="btn btn-danger" href="{% url 'transacao_delete' transacao.id %}">EXCLUIR</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

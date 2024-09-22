@@ -4,7 +4,11 @@ from .forms import TransacaoForm
 
 # Create your views here.
 def home(request):
-    return render(request, 'controle/home.html')
+    transacoes = Transacao.objects.all()
+    context ={
+        'transacoes': transacoes
+   }
+    return render(request, 'controle/home.html', context)
 
 def transacoes(request):
    transacoes = Transacao.objects.all()
@@ -19,7 +23,7 @@ def transacao_add(request):
     if request.POST:
         if form.is_valid():
             form.save()
-            return redirect('transacoes')     
+            return redirect('home')     
 
     return render(request, 'controle/transacao_add.html', {'form': form })
 
@@ -41,4 +45,4 @@ def transacao_edit(request, transacao_id):
 def transacao_delete(request, transacao_id):
     transacao = Transacao.objects.get(id= transacao_id)
     transacao.delete() 
-    return redirect('home')
+    return redirect('transacoes')

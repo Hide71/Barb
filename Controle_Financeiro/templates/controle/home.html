@@ -1,1 +1,126 @@
-<h1>Cadastro de clientes</h1>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de finanças Barb</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+     <!-- META NAME & DESCRIPTION -->
+     <meta name="author" content="Hideraldo Rodrigues">
+     <meta name="description" content="Seu app de controle de finanças pessoais.">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+    <header>
+        <img src="{% static 'img/eder.jpg' %}" alt="Logo Barb">
+        <h1>CONTROLE FINANCEIRO EDER BARBERSHOP</h1>
+    </header>
+    <main class="container">
+        <section id="balance">
+            <h2 class="sr-only">Balanço</h2>
+            <div class="card">
+                <h3>
+                    <span>
+                        Entradas
+                    </span>
+                    <img src="./assets/income.svg" alt="Imagem de entradas">
+                </h3>
+                <p id="incomeDisplay">R$ 0,00</p>
+            </div>
+            <div class="card">
+                <h3>
+                    <span>
+                        Saídas
+                    </span>
+                    <img src="./assets/expense.svg" alt="Imagem de saídas">
+                </h3>
+                <p id="expenseDisplay">R$ 0,00</p>
+            </div>
+            <div class="card total">
+                <h3>
+                    <span>
+                        Total
+                    </span>
+                    <img src="./assets/total.svg" alt="Imagem de total">
+                </h3>
+                <p id="totalDisplay">R$ 0,00</p>
+            </div>
+        </section>
+        <a href="#" onclick="Modal.open()" class="button new" id="abrirModal">+ Nova transação</a>
+    
+        <!-- Modal Structure -->
+        <div id="modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span id="fecharModal" class="fechar-modal">&times;</span>
+                <div id="conteudoModal">
+                    <!-- Conteúdo será carregado via AJAX -->
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Abrir o modal e carregar conteúdo
+            document.getElementById('abrirModal').onclick = function() {
+                var modal = document.getElementById('modal');
+                modal.style.display = "block";
+    
+                // Fazer requisição AJAX para carregar conteúdo do modal
+                fetch("{% url 'transacao_add' %}")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('conteudoModal').innerHTML = data;
+                });
+            };
+    
+            // Fechar o modal
+            document.getElementById('fecharModal').onclick = function() {
+                var modal = document.getElementById('modal');
+                modal.style.display = "none";
+            };
+    
+            // Fechar modal ao clicar fora da área do modal
+            window.onclick = function(event) {
+                var modal = document.getElementById('modal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        </script>
+
+        <section id="transaction">
+            <h2 class="sr-only">Transações</h2>
+            <div class="table-container">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transacao in transacoes %}
+                <tr>
+                    <td>{{transacao.descricao}}</td>
+                    <td>{{transacao.valor}}</td>
+                    <td>{{transacao.data}}</td>
+                    <td>
+                       <a class="btn btn-warning" href="{% url 'transacao_edit' transacao.id %}">EDITAR</a>
+                       <a class="btn btn-danger" href="{% url 'transacao_delete' transacao.id %}">EXCLUIR</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,24 +1,22 @@
-<div class="modal-overlay"></div>
-    <div class="modal">
-        <div id="form">
+
             <h2>Nova Transação</h2>
             <form action="{% url 'transacao_add' %}" method="post"> {% csrf_token %}
 
                 <div class="input-group">
-                    <label class="sr-only" for="descricao">
+                    <label class="sr-only" for="id_descricao">
                         Descrição
                     </label>
-                    <input type="text" id="descricao" name="descricao" placeholder="Descrição">
+                    <input type="text" id="id_descricao" name="descricao" placeholder="Descrição" required>
                 </div>
                 <div class="input-group">
-                    <label class="sr-only" for="valor">Valor</label>
-                    <input type="number" step="0.01" id="valor" name="valor" placeholder="0,00">
+                    <label class="sr-only" for="id_valor">Valor</label>
+                    <input type="number" step="0.01" id="id_valor" name="valor" placeholder="0,00" required>
                     <small>Use o sinal " - " (negativo) para despesas e " , " (vírgula) para casas
                         decimais</small>
                 </div>
                 <div class="input-group">
-                    <label class="sr-only" for="date">Data</label>
-                    <input type="date" id="data" name="data">
+                    <label class="text" for="id_data"></label>
+                    <input type="date" id="id_data" name="data" required>
                 </div>
                 <div id="att" class="attention sr-only">
                     <small>Por favor, preencha todos os campos!</small>
@@ -28,6 +26,3 @@
                     <button type="submit">Salvar</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>

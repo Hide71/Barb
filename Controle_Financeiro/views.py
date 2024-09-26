@@ -45,4 +45,4 @@ def transacao_edit(request, transacao_id):
 def transacao_delete(request, transacao_id):
     transacao = Transacao.objects.get(id= transacao_id)
     transacao.delete() 
-    return redirect('transacoes')
+    return redirect('home')

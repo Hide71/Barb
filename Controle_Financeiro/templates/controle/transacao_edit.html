@@ -1,6 +1,8 @@
+
+
 <div class="card"></div>
     <div class="card-body">
-        <h1>EDITAR CLIENTE</h1>
+        <h1>EDITAR TRANSAÇÔES</h1>
         <hr>
         <form action="{% url 'transacao_edit' transacao.id %}" method="post">
             {% csrf_token %}

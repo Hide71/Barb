@@ -1,4 +1,5 @@
 env/
+venv/
 asgiref==3.8.1
 Django==5.1.1
 mysqlclient==2.2.4

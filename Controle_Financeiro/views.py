@@ -34,7 +34,7 @@ def transacao_edit(request, transacao_id):
     if request.POST:
             if form.is_valid():
                 form.save()
-                return redirect('transacoes')
+                return redirect('home')
         
     context ={
         'transacao':transacao,

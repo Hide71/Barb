@@ -16,7 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Login to GCP
       - uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
